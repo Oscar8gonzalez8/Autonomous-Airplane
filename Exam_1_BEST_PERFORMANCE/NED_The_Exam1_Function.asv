@@ -1,0 +1,94 @@
+function [delta_t,...[0 to 1] throttle command
+    delta_e,...[-1 to 1] elevator command
+    delta_a,...[-1 to 1] aileron command
+    delta_r,...[-1 to 1] rudder command
+    qNew,...[e0;e1;e2;e3] (-1 to 1) estimated quaternions
+    VInew,...[VxI;VyI;VzI] (m/s) estimated inertial frame velocities
+    XInew,...[xI;yI;zI] (m) estimated inertial frame positions
+    wpIndex ...[0 to Nwaypoints] index of current waypoint target
+    ]=NED_The_Exam1_Function( ...
+        q,...[e0;e1;e2;e3] (-1 to 1) previous estimated quaternions
+        VI,...[VxI;VyI;VzI] (m/s) previous estimated inertial frame velocities
+        XI,...[xI;yI;zI] (m) previous estimated inertial frame positions
+        gyro,...[wx;wy;wz] (rad/s) angular velocities
+        accel,...[ax;ay;az] (m/s2) gravity positive, linear accelerations negative
+        magnet,...[Mx;My;Mz] (uT) geomagnetic field strengths
+        GPS_lat,...[lat] (deg) latitude angle
+        GPS_lon,...[lon] (deg) longitude angle
+        GPS_alt,...[-zI] (m) altitude 
+        lat0,...[lat] (deg) initial latitude angle
+        lon0,...[lon] (deg) initial longitude angle
+        alt0,...[-zI] (m) initial altitude
+        newGPS,...[0 or 1] flag indicating whether new GPS is available or not
+        dt,...[dt] (s) iteration time step
+        dtGPS, ...[dtGPS] (s) GPS time-step
+        GPSwaypoints,...[lat1, lon1, alt1; lat2, lon2, alt2; lat3, lon3, alt3;...] (deg,deg,m) Nx3 Array of N GPS waypoints
+        waypointIndex ...[0 to Nwaypoints] index of current waypoint target
+    )
+
+
+% TUNABLE PARAMETERS
+kp_pitch = -0.9; 
+kp_roll_pitch = 0.09; 
+% don't change these **
+kd_roll = 0.0684; 
+kp_roll = 0.61;
+% ** 
+kp_roll_yaw = 0.41; 
+inc_angle_deg = 67;
+alpha = 1;
+beta = 0.3;
+gamma = 0.9;
+betaG = dt / 1.2;
+betaM = dt / 0.1; 
+
+
+qNew = function_QuaternionEstimator(q, gyro, accel, magnet,...
+    dt, inc_angle_deg, betaG, betaM);
+
+e0 = qNew(1);
+e1 = qNew(2);
+e2 = qNew(3);
+e3 = qNew(4);
+
+
+[roll, pitch, yaw] = Quaternion2Euler(e0, e1, e2, e3);
+
+[XInew,VInew] = ...
+function_HolopticSensorFusion(...
+q, XI, VI, lat0, lon0, alt0,...
+gyro, accel, magnet,...
+GPS_lat, GPS_lon, GPS_alt, ...
+newGPS, dt, inc_angle_deg, alpha, beta, gamma, dtGPS);
+
+
+[delta_t, delta_e, delta_a, delta_r, wpIndex] = ...
+    GPS_WaypointFollowingFunction( ...
+    GPSwaypoints,...[lat1, lon1, alt1; lat2, lon2, alt2; lat3, lon3, alt3;...] (deg,deg,m) Nx3 Array of N GPS waypoints
+    waypointIndex, ...[0 to Nwaypoints] index of current waypoint target
+    roll, ...(rad) roll angle
+    pitch, ...(rad) pitch angle
+    yaw, ...(rad) yaw angle
+    gyro, ...[p;q;r] (rad/s) vector of gyro measurements
+    q, ...[e0;e1;e2;e3] (-1 to 1) quaternion orientation (this is optional)
+    GPS_lat, ...(deg) latitude
+    GPS_lon, ...(deg) longitude
+    GPS_alt, ...(m) 
+    kp_roll_yaw,... 
+    kp_roll,...
+    kd_roll,...
+    kp_roll_pitch,...
+    kp_pitch...
+    );
+
+
+
+
+function [roll,pitch,yaw] = Quaternion2Euler(e0,e1,e2,e3)
+roll = atan2(2*(e0.*e1+e2.*e3), (e0.^2+e3.^2-e1.^2-e2.^2));
+pitch = asin(max(-1,min(1,2*(e0.*e2-e1.*e3))));
+yaw = atan2(2*(e0.*e3+e1.*e2),(e0.^2+e1.^2-e2.^2-e3.^2));
+end
+
+end
+
