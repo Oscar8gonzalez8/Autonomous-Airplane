@@ -1,6 +1,9 @@
 # Autonomous-Airplane
 This project involves developing an autonomous flight control system using C++, Arduino libraries, and Matlab. Work includes designing control strategies, state-estimation programming, sensor data processing, and piloting a glider autonomously via GPS waypoint navigation.
 
+Foam Glider Build Instructions (Youtube video)
+https://www.youtube.com/watch?v=40lgBxxLxyk
+
 ![361685467_6516233868398604_5540241220003179026_n](https://github.com/Oscar8gonzalez8/Autonomous-Airplane/assets/98362869/fee76228-f2d7-44c6-8502-44492ff7056c)
 ![356762251_236282112689558_4511177654493161114_n](https://github.com/Oscar8gonzalez8/Autonomous-Airplane/assets/98362869/5e6d75b2-7c29-4e24-bbc2-0d857cfef28f)
 ![356635031_272845275346199_8744169246097077350_n](https://github.com/Oscar8gonzalez8/Autonomous-Airplane/assets/98362869/21550181-18ca-47b2-9bc5-c40b04f55799)
@@ -13,5 +16,4 @@ This project involves developing an autonomous flight control system using C++, 
 
 
 
-Foam Glider Build Instructions (Youtube video)
-https://www.youtube.com/watch?v=40lgBxxLxyk
+
