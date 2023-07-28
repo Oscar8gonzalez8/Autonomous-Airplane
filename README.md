@@ -10,3 +10,8 @@ This project involves developing an autonomous flight control system using C++, 
 ![361673383_1008893720113435_5132913651198092249_n](https://github.com/Oscar8gonzalez8/Autonomous-Airplane/assets/98362869/2ad8bba7-ef69-4fc2-bb88-4b7236eb5311)
 ![361690627_195043836596277_6463531064410485058_n](https://github.com/Oscar8gonzalez8/Autonomous-Airplane/assets/98362869/0035769a-926e-4c60-9845-0acb144c7cec)
 ![355989492_1034926961250195_2383454628189617543_n](https://github.com/Oscar8gonzalez8/Autonomous-Airplane/assets/98362869/52858c98-e762-4fc9-a4fb-176cd7dabf25)
+
+
+
+Foam Glider Build Instructions (Youtube video)
+https://www.youtube.com/watch?v=40lgBxxLxyk
