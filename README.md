@@ -1,7 +1,7 @@
 # Autonomous-Airplane
 This project involves developing an autonomous flight control system using C++, Arduino libraries, and Matlab. Work includes designing control strategies, state-estimation programming, sensor data processing, and piloting a glider autonomously via GPS waypoint navigation.
 
-Explaination on the Algorithm: https://docs.google.com/presentation/d/1fCbJbsx2O6PLr12feJSKdsFePP0miNxr8TcrseYYowg/edit?usp=sharing
+Explanation on the Algorithm: https://docs.google.com/presentation/d/1fCbJbsx2O6PLr12feJSKdsFePP0miNxr8TcrseYYowg/edit?usp=sharing
 
 Board Manager URL for the RP2040  
 https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json
